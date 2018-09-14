@@ -6,3 +6,5 @@ import Model from './model/model';
 console.log('hello world!');
 
 const m = new Model();
+
+console.log('m.title', m.title);

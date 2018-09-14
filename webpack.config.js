@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     // entry: ['./node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js', './src/index.js'],
-    entry: './src/index.js',
+    entry: ['@babel/polyfill', './src/index.js'],
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
@@ -38,7 +38,7 @@ module.exports = {
                  // exclude: /node_modules/,
                  loader: 'babel-loader',
                  query: {
-                    presets: ['es2015']                    
+                    presets: ['es2015', 'stage-2']                    
                 }
              }
         ]

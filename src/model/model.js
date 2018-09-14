@@ -3,12 +3,12 @@ import defaultConfig from './default-config';
 
 export default class Model {
 
-    /*id = Math.random();
-    title = "";
+    id = Math.random();
+    title = "testing";
     finished = false;
-    contentConfig = defaultConfig;*/
+    contentConfig = defaultConfig;
 
-    // @observable contentConfig = defaultConfig;
+    @observable contentConfig = defaultConfig;
 
     constructor() {
         console.log('defaultConfig', defaultConfig);
