@@ -1,27 +1,13 @@
-import { decorate, observable, computed } from 'mobx';
+import { decorate, observable, computed, action } from 'mobx';
 import defaultConfig from './default-config';
 
 export default class Model {
 
-    id = Math.random();
-    @observable title = "testing";
-    finished = false;
-    contentConfig = defaultConfig;
-
-    @computed get theTitle() {
-        return `the title is ${this.title} ${this.id}`;
-    }
-
     @observable contentConfig = defaultConfig;
 
-    constructor() {
-        console.log('defaultConfig', defaultConfig);
+    @action.bound
+    modifyItem() {
+        this.contentConfig.options[0].AnswerText = 'will this one work?'
     }
+
 }
-
-
-/*decorate(Model, {
-    title: observable,
-    finished: observable,
-    contentConfig: observable
-});*/
