@@ -1,61 +1,39 @@
-import { LitElement, html, property } from '@polymer/lit-element';
+import { LitElement, html } from '@polymer/lit-element';
 
 
 export default class FeedbackArea extends LitElement {
 
-    @property({ type: String })
-    feedbackStatus = 'default';
+    static get properties() {
+        return {
+            options: { type: Array },
+            state: { type: Object }
+        };
+    }
 
-    @property({ type: String })
-    finalCannedResponse = '';
-
-    @property({ type: String })
-    feedbackText = '';
-
-    @property({ type: Number })
-    attemptsLeft = 1;
-
-    @property({ type: Boolean })
-    correct;
+    constructor() {
+        super();
+        this.state = {};
+    }
 
     render() {
         const { 
-            feedbackStatus, 
-            finalCannedResponse, 
-            feedbackText, 
-            attemptsLeft,
-            correct
-        } = this;
-        //todo: logic here needs tobe added to model as actions
+            feedbackText,
+            maxAttemptsReached
+        } = this.state;
 
         return html`
-            <div
-              id="explib-widget-feedback-block"
-              className="style-scope explib-interaction-anatomy"
-            >
-              <div
-                id="explib-widget-feedback-block-wrapper"
-                className="style-scope explib-widget-feedback-block"
-              >
+            <div className="style-scope explib-interaction-anatomy">
+              <div className="style-scope explib-widget-feedback-block">
                 <section className="anatomy-feedback-area row style-scope explib-widget-feedback-block">
-                  
-                    <span
-                      id="feedbackYesNoData"
-                      className="anatomy-feedback-canned-response feedbackYesNo style-scope explib-widget-feedback-block"
-                    >
-                        <!-- finalCannedResponse or feedbackText -->
-                        feedback text..
-                    </span>
 
+                    <span className="anatomy-feedback-canned-response feedbackYesNo style-scope explib-widget-feedback-block">
+                        ${this.state.feedbackText}
+                    </span>
                     <div className="button-panel show-button style-scope explib-widget-feedback-block">
-                      <div
-                        id="explib-widget-button"
-                        className="style-scope explib-widget-feedback-block"
-                      >
-                      <!-- checkAnswer button, 'Check' or 'Try Again' label -->
-                      <!-- checkAnswer button, 'Show' label -->
-                      try again button..
-                      <button value="testing" @click="${(e) => this._checkHandler('check_answer')}">Check</button>
+                      <div className="style-scope explib-widget-feedback-block">
+                          <button @click="${(e) => this._checkHandler('show_answer')}">Show</button>
+                          <button @click="${(e) => this._checkHandler('try_again')}">Try Again</button>
+                          <button @click="${(e) => this._checkHandler('check_answer')} ?disabled=${maxAttemptsReached}">Check</button>
                       </div>
                     </div>
 

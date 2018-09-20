@@ -7,31 +7,31 @@
         "CannedResponse": "Lorem ipsum dolor sit amet.",
         "value": 0,
         "CorrectAnswer": false,
-        "Feedback": "Lorem ipsum dolor sit amet."       
+        "Feedback": "Feedback 1 Lorem ipsum dolor sit amet."       
     },
     {
         "AnswerText": "Brute animal tractatos an duo.",
         "CannedResponse": "Lorem ipsum dolor sit amet.",
         "value": 1,
         "CorrectAnswer": true,
-        "Feedback": "Lorem ipsum dolor sit amet."       
+        "Feedback": "2 Lorem ipsum dolor sit amet."       
     },
     {
         "AnswerText": "An labore complectitur nec.",
         "CannedResponse": "Lorem ipsum dolor sit amet.",
-        "Feedback": "Lorem ipsum dolor sit amet.",
+        "Feedback": "3 Lorem ipsum dolor sit amet.",
         "value": 2,
         "CorrectAnswer": false
     },
     {
         "AnswerText": "Minim everti molestiae nec ad.",
         "CannedResponse": "Lorem ipsum dolor sit amet.",
-        "Feedback": "Lorem ipsum dolor sit amet.",
+        "Feedback": "4 Lorem ipsum dolor sit amet.",
         "value": 3,
         "CorrectAnswer": false
     }],
-    "FinalCannedResponse": "Lorem ipsum dolor sit amet.",
-    "FinalIncorrectFeedback": "Lorem ipsum dolor sit amet.",
+    "FinalCannedResponse": "You chose wisely.",
+    "FinalIncorrectFeedback": "You chose poorly.",
     "qtype": "mcq",
     "MaxAttempts": 2
 }

@@ -48,12 +48,18 @@ export default class McqApp extends LitElement {
     connectedCallback() {
         this.renderRoot.addEventListener('title_change', (e) => this.model.contentConfig.ActivityTitle = e.detail);
         this.renderRoot.addEventListener('feedback', (e) => {
+            console.log('feeback', e);
             if(e.detail === 'check_answer') {
                 this.model.checkAnswer();
+            }else if(e.detail === 'try_again') {
+                console.log('try_again...');
+                this.model.tryAgain();
+            }else if(e.detail === 'show_answer') {
+                this.model.showAnswer();
             }
         });
         this.renderRoot.addEventListener('radio_click', (e) => {
-            this.model.setSelectedOption(e.detail);
+            this.model.selectOption(e.detail);
         });
     }
 
