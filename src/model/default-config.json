@@ -33,8 +33,5 @@
     "FinalCannedResponse": "Lorem ipsum dolor sit amet.",
     "FinalIncorrectFeedback": "Lorem ipsum dolor sit amet.",
     "qtype": "mcq",
-    "MaxAttempts": 2,
-    "just": {
-        "a": "test"
-    }
+    "MaxAttempts": 2
 }

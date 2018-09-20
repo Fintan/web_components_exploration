@@ -1,14 +1,20 @@
-import { LitElement, html } from '@polymer/lit-element';
+import { LitElement, html, property } from '@polymer/lit-element';
 
 
 export default class Header extends LitElement {
 
-    static get properties() {
+    /*static get properties() {
         return {
             activityTitle: { type: String },
             questionStem: { type: String }
         };
-    }
+    }*/
+
+    @property({ type: String })
+    activityTitle = '';
+
+    @property({ type: String })
+    questionStem = '';
 
     render() {
         return html`

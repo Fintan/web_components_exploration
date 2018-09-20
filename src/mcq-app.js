@@ -1,62 +1,59 @@
 import {LitElement, html} from '@polymer/lit-element';
-import MyElement from './components/my-element';
 import Header from './components/cpl-header';
 import ActivityArea from './components/cpl-activity-area';
+import FeedbackArea from './components/cpl-feedback-area';
 import Model from './model/model';
-// import { store } from './model/model';
 import { autorun } from 'mobx';
-import {Radio} from "@material/mwc-radio"
-
-const m = new Model();
-window.m = m;
-
 
 export default class McqApp extends LitElement {
 
     static get properties() {
         return {
             config: Object,
-            options: { type: Array }
+            options: { type: Array },
+            appState: { type: Object }
         };
     }
 
     constructor() {
         super();
-        this.model = m;
+        this.model = new Model();
+        this.updateProps();
+        autorun(() => this.updateProps());
         window.mcq = this;
-        this.config = { ...m.contentConfig };
-        this.options = m.contentConfig.options.map(op => {
-            return { AnswerText: op.AnswerText }
-        });
-        autorun(() => {
-            console.log('any change??');
-            //update copy of config
-            this.config = { ...m.contentConfig };
-            //update copy of options
-            this.options = m.contentConfig.options.map(op => {
-                return { 
-                    AnswerText: op.AnswerText 
-                };
-            });
-        });
+    }
 
+    updateProps() {
+        //update props with a copy of the relevant state
+        this.config = { ...this.model.contentConfig };
+        this.options = this.model.contentConfig.options.map(op => {
+            return { 
+                AnswerText: op.AnswerText,
+                CorrectAnswer: op.CorrectAnswer,
+                Feedback: op.Feedback,
+                CannedResponse: op.CannedResponse
+            };
+        });
+        this.appState = { ...this.model.appState };
     }
 
     render(){
         return html`
         <cpl-header activitytitle="${this.config.ActivityTitle}" questionstem="${this.config.QuestionStem}"></cpl-header>
-        <cpl-activity-area .options="${this.options}"></cpl-activity-area>
-
-        <mwc-radio id="s.1" name="tmp"></mwc-radio>
-        <mwc-radio id="s.2" name="tmp" checked></mwc-radio>
-        <mwc-radio id="s.3" name="tmp"></mwc-radio>
+        <cpl-activity-area .options="${this.options}" .state="${this.appState}"></cpl-activity-area>
+        <cpl-feedback-area .state="${this.appState}"></cpl-feedback-area>
         `;
     }
 
     connectedCallback() {
         this.renderRoot.addEventListener('title_change', (e) => this.model.contentConfig.ActivityTitle = e.detail);
+        this.renderRoot.addEventListener('feedback', (e) => {
+            if(e.detail === 'check_answer') {
+                this.model.checkAnswer();
+            }
+        });
         this.renderRoot.addEventListener('radio_click', (e) => {
-            console.log('clicked', e.detail, this.model.contentConfig.options[e.detail]);
+            this.model.setSelectedOption(e.detail);
         });
     }
 
