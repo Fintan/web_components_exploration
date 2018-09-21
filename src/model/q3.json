@@ -1,0 +1,44 @@
+{
+    "ActivityTitle": "A sample Question",
+    "QuestionStem": "Direction Line",
+    "Summary": "Lorem ipsum dolor sit amet.",
+    "options": [{
+        "AnswerText": "answer 1.",
+        "CannedResponse": "Lorem ipsum dolor sit amet.",
+        "value": 0,
+        "CorrectAnswer": false,
+        "Feedback": "Feedback 1 Lorem ipsum dolor sit amet."       
+    },
+    {
+        "AnswerText": "answer 2.",
+        "CannedResponse": "Lorem ipsum dolor sit amet.",
+        "value": 1,
+        "CorrectAnswer": false,
+        "Feedback": "2 Lorem ipsum dolor sit amet."       
+    },
+    {
+        "AnswerText": "answer3.",
+        "CannedResponse": "Lorem ipsum dolor sit amet.",
+        "Feedback": "3 Lorem ipsum dolor sit amet.",
+        "value": 2,
+        "CorrectAnswer": false
+    },
+    {
+        "AnswerText": "answrer 4d.",
+        "CannedResponse": "Lorem ipsum dolor sit amet.",
+        "Feedback": "4 Lorem ipsum dolor sit amet.",
+        "value": 3,
+        "CorrectAnswer": true
+    },
+    {
+        "AnswerText": "answrer 5.",
+        "CannedResponse": "Lorem ipsum dolor sit amet.",
+        "Feedback": "4 Lorem ipsum dolor sit amet.",
+        "value": 4,
+        "CorrectAnswer": false
+    }],
+    "FinalCannedResponse": "You chose wisely.",
+    "FinalIncorrectFeedback": "Showing feedback for incorrect scenario.",
+    "qtype": "mcq",
+    "MaxAttempts": 2
+}

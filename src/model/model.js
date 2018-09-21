@@ -1,5 +1,6 @@
 import { observable, computed, action } from 'mobx';
 import defaultConfig from './default-config';
+import loadJson from '../util/load-json';
 
 export default class Model {
 
@@ -13,7 +14,7 @@ export default class Model {
         stage: 'activity_init'
     };
 
-    @action
+    @action('select an option')
     selectOption(index) {
         this.appState.selectedIndex = Number(index);
         this.appState.feedbackText = '';
@@ -52,6 +53,13 @@ export default class Model {
 
     @action
     tryAgain() {
+        this.resetAppState();
+    }
+
+    @action('load config')
+    async loadConfig(src='./q1.json') {
+        const content = await loadJson(src);
+        this.contentConfig = content;
         this.resetAppState();
     }
 

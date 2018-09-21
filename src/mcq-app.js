@@ -1,7 +1,9 @@
 import {LitElement, html} from '@polymer/lit-element';
 import Header from './components/cpl-header';
 import ActivityArea from './components/cpl-activity-area';
-import FeedbackArea from './components/cpl-feedback-area';
+import FooterArea from './components/cpl-footer';
+import Questions from './components/cpl-questions';
+// import Greeting from './components/greeting-view';
 import Model from './model/model';
 import { autorun } from 'mobx';
 
@@ -42,8 +44,10 @@ export default class McqApp extends LitElement {
         return html`
         <cpl-header activitytitle="${this.config.ActivityTitle}" questionstem="${this.config.QuestionStem}"></cpl-header>
         <cpl-activity-area .options="${this.options}" .state="${this.appState}"></cpl-activity-area>
-        <cpl-feedback-area .state="${this.appState}"></cpl-feedback-area>
+        <cpl-footer .state="${this.appState}"></cpl-footer>
+        <cpl-questions></cpl-questions>
         `;
+        // <greeting-view></greeting-view>
     }
 
     connectedCallback() {
@@ -58,6 +62,9 @@ export default class McqApp extends LitElement {
         });
         this.renderRoot.addEventListener('radio_click', (e) => {
             this.model.selectOption(e.detail);
+        });
+        this.renderRoot.addEventListener('load_question', (e) => {
+            this.model.loadConfig(e.detail);
         });
     }
 

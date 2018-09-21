@@ -1,0 +1,47 @@
+{
+  "ActivityTitle": "Multiple Choice Single",
+  "QuestionStem": "Which of these is a fruit? Select your answer.",
+  "VOIntro": "",
+  "Tip": "Here's a tip",
+  "Summary": "",
+  "audioSchema": "mcq_audio_schema.json",
+  "audio": {},
+  "options": [
+    {
+      "AnswerText": "Potato",
+      "CannedResponse": "That's not it",
+      "Feedback": "Try again.",
+      "value": 0,
+      "CorrectAnswer": false
+    },
+    {
+      "AnswerText": "Orange",
+      "CannedResponse": "Exactly!",
+      "Feedback": "Oranges are a fruit.",
+      "value": 1,
+      "CorrectAnswer": true
+    },
+    {
+      "AnswerText": "Cabbage",
+      "CannedResponse": "I don't think so",
+      "Feedback": "Try again.",
+      "value": 2,
+      "CorrectAnswer": false
+    }
+  ],
+  "optionsAreImages": false,
+  "FinalCannedResponse": "That't not it.",
+  "FinalIncorrectFeedback": "Oranges are a fruit.",
+  "AudioFromRCE": true,
+  "qtype": "mcq",
+  "AllowFullScreen": true,
+  "AllowRefresh": true,
+  "ShowAnswerOption": true,
+  "SubmitToTeacherOption": false,
+  "MaxAttempts": "2",
+  "Stimulus": "",
+  "StimulusAltText": "",
+  "StimulusImageCredits": "",
+  "FinalVOFeedback": "",
+  "audioFile": "../../widget_data/audio_data/ce3894324890437aae9990b482c6541e.json"
+}

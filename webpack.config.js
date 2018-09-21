@@ -1,6 +1,7 @@
 const path = require('path');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const classProps = require('@babel/plugin-proposal-class-properties');
 
 module.exports = {
@@ -10,7 +11,12 @@ module.exports = {
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             template: 'src/index.html'
-        })
+        }),
+        new CopyWebpackPlugin([
+            { from: './src/model/q1.json', to: './' },
+            { from: './src/model/q2.json', to: './' },
+            { from: './src/model/q3.json', to: './' }
+        ])
     ],
     output: {
         filename: 'bundle-[hash:6].js',

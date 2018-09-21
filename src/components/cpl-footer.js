@@ -1,6 +1,6 @@
 import { LitElement, html } from '@polymer/lit-element';
 
-export default class FeedbackArea extends LitElement {
+export default class FooterArea extends LitElement {
 
     static get properties() {
         return {
@@ -36,4 +36,4 @@ export default class FeedbackArea extends LitElement {
 
 }
 
-customElements.define('cpl-feedback-area', FeedbackArea);
+customElements.define('cpl-footer', FooterArea);
