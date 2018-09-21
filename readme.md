@@ -12,8 +12,8 @@ npm start
 
 ## Technologies
 
-1. View Layer: Use of Lit Element as a Web Component base class.
-2. State Management: Mobx.
+1. View Layer: Use of [Lit Element][litelement_url] as a Web Component base class.
+2. State Management: [Mobx][mobx_url].
 3. Language: ES6
 4. Build chain: Webpack/Babel
 
@@ -24,7 +24,7 @@ npm start
 
 1. Easy to learn
 2. Ability to setup binded properties that automatically updates the DOM when something changes
-3. Ability to render markup using a templating solution (Lit Html)
+3. Ability to render markup using a templating solution ([Lit Html][lithtml_url])
 4. Removes the need to manually manage setup and remove DOM event listeners
 5. A lightweight base class for building web components
 
@@ -46,6 +46,11 @@ npm start
 1. The observer side to the solution caters more for a React audience
 2. The documentation is directed towards React users
 3. Learning curve is moderate
+
+
+[lithtml_url]: https://polymer.github.io/lit-html/
+[litelement_url]: https://github.com/Polymer/lit-element
+[mobx_url]: https://mobx.js.org/ 
 
 
 
