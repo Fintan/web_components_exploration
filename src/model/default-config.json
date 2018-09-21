@@ -31,7 +31,7 @@
         "CorrectAnswer": false
     }],
     "FinalCannedResponse": "You chose wisely.",
-    "FinalIncorrectFeedback": "You chose poorly.",
+    "FinalIncorrectFeedback": "Showing feedback for incorrect scenario.",
     "qtype": "mcq",
     "MaxAttempts": 2
 }

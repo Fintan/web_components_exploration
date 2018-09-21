@@ -25,6 +25,7 @@ export default class McqApp extends LitElement {
 
     updateProps() {
         //update props with a copy of the relevant state
+        //so that components can't directly mutate state
         this.config = { ...this.model.contentConfig };
         this.options = this.model.contentConfig.options.map(op => {
             return { 
@@ -46,16 +47,13 @@ export default class McqApp extends LitElement {
     }
 
     connectedCallback() {
-        this.renderRoot.addEventListener('title_change', (e) => this.model.contentConfig.ActivityTitle = e.detail);
         this.renderRoot.addEventListener('feedback', (e) => {
-            console.log('feeback', e);
             if(e.detail === 'check_answer') {
                 this.model.checkAnswer();
             }else if(e.detail === 'try_again') {
-                console.log('try_again...');
                 this.model.tryAgain();
             }else if(e.detail === 'show_answer') {
-                this.model.showAnswer();
+                this.model.revealAnswer();
             }
         });
         this.renderRoot.addEventListener('radio_click', (e) => {
@@ -64,7 +62,8 @@ export default class McqApp extends LitElement {
     }
 
     disconnectedCallback() {
-
+        // this.renderRoot.removeEventListener('feedback', ...)
+        // this.renderRoot.removeEventListener('radio_click', ...)
     }
 
 }

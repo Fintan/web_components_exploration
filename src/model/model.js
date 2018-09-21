@@ -7,51 +7,61 @@ export default class Model {
 
     @observable appState = {
         selectedIndex: undefined,
-        result: undefined,
-        giveup: undefined,
         feedbackText: '',
         attempts: 0,
-        maxAttemptsReached: false
+        maxAttemptsReached: false,
+        stage: 'activity_init'
     };
 
     @action
     selectOption(index) {
         this.appState.selectedIndex = Number(index);
         this.appState.feedbackText = '';
-    }
-
-    @action
-    checkAnswer() {
-        if(this.appState.selectedIndex !== undefined) {
-            if(this.contentConfig.options.length > this.appState.selectedIndex) {
-                const selectedOption = this.contentConfig.options[this.appState.selectedIndex];
-                this.appState.result = selectedOption.CorrectAnswer;
-                this.appState.feedbackText = this.appState.result ? this.contentConfig.FinalCannedResponse : selectedOption.Feedback;
-            }
-            this.appState.attempts++;
-            if(this.appState.attempts >= this.contentConfig.MaxAttempts) {
-                this.appState.maxAttemptsReached = true;
-                this.appState.feedbackText = this.contentConfig.FinalIncorrectFeedback;
-            }
+        this.appState.stage = 'activity_started';
+        if(this.appState.attempts === this.contentConfig.MaxAttempts) {
+            this.appState.maxAttemptsReached = true;
         }
     }
 
     @action
-    showAnswer() {
-        this.appState.giveup = true;
+    checkAnswer() {
+        if(this.appState.selectedIndex !== undefined && !this.appState.maxAttemptsReached) {
+            if(this.appState.attempts < this.contentConfig.MaxAttempts) {
+                this.appState.attempts++;
+            }else {
+                this.appState.maxAttemptsReached = true;
+            }
+            if(this.contentConfig.options.length > this.appState.selectedIndex && !this.appState.maxAttemptsReached) {
+                const selectedOption = this.contentConfig.options[this.appState.selectedIndex];
+                this.appState.feedbackText = selectedOption.CorrectAnswer ? this.contentConfig.FinalCannedResponse : selectedOption.Feedback;
+            }
+            this.appState.stage = 'submit_answer';
+        }
+    }
+
+    @action
+    revealAnswer() {
         this.appState.feedbackText = this.contentConfig.FinalIncorrectFeedback;
+        this.contentConfig.options.forEach(({ CorrectAnswer }, i ) => {
+            if(CorrectAnswer === true) {
+                this.appState.selectedIndex = i;
+            }
+        });
+        this.appState.stage = 'give_up';
     }
 
     @action
     tryAgain() {
-        console.log('tryAgain');
+        this.resetAppState();
+    }
+
+    resetAppState() {
         this.appState = {
             selectedIndex: undefined,
-            result: undefined,
-            giveup: undefined,
             feedbackText: '',
             attempts: 0,
-            maxAttemptsReached: false
+            maxAttemptsReached: false,
+            stage: 'activity_init'
         };
     }
 
