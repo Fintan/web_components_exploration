@@ -6,17 +6,18 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     // entry: ['./node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js', './src/index.js'],
+    // entry: ['./src/index.js'],
     entry: ['@babel/polyfill', './src/index.js'],
     plugins: [
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             template: 'src/index.html'
         }),
-        new CopyWebpackPlugin([
+       /* new CopyWebpackPlugin([
             { from: './src/model/q1.json', to: './' },
             { from: './src/model/q2.json', to: './' },
             { from: './src/model/q3.json', to: './' }
-        ])
+        ])*/
     ],
     output: {
         filename: 'bundle-[hash:6].js',
@@ -51,8 +52,9 @@ module.exports = {
                  // exclude: /node_modules/,
                  loader: 'babel-loader',
                  query: {
-                    presets: ['es2015', 'stage-2'] ,
-                    plugins: ['transform-decorators-legacy']                   
+                    presets: ['@babel/preset-env'],
+                    // plugins: [["@babel/plugin-transform-react-jsx", { "pragma": "h" }]]                   
+                    plugins: [["@babel/plugin-transform-react-jsx", { "pragma": "h" }], '@babel/plugin-proposal-class-properties']                   
                 }
              }
         ]
