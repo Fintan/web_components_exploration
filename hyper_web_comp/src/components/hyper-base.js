@@ -2,48 +2,50 @@ import { h, app } from 'hyperapp';
 import hyperx from 'hyperx';
 
 export const html = hyperx(h);
+export const jsx = h;
 
 export class HyperBase extends HTMLElement {
 
-    //private (props)
     static get properties() {
-        return {
-            count: 0,
-            title: 'This is the title',
-            description: 'A descriptions sdgsdg'
-        };
+        return {};
     }
 
     //private (action methods map to prop names)
     get actions() { return this._actions }
 
-    _actions = {
-        count: value => state => ({ count: value })
-    }
+    _actions = {}
 
     constructor() {
         super();
         this._createActions();
-        this.hypeState = app(this.constructor.properties, this.actions, this.render.bind(this), this.attachShadow({mode: 'open'}));
+        this.hypeState = app(this._createProps(), this.actions, this.render.bind(this), this.attachShadow({mode: 'open'}));
     }
 
     render(props, actions) {
-        const { title, description } = props;
-        return html`
-        <div>
-            <h1>${title}</h1>
-            <p>${description}</p>
-        </div>
-        `;
+        return html`<p>${this.constructor.name} needs a render method that returns a template literal.</p>`;
+    }
+
+    _createProps() {
+        const properties = this.constructor.properties;
+        const ___props = Object.keys(properties)
+            .map(key => {
+                //aligns with lit element convention of props directly on 'this'
+                this[key] = properties[key].default || undefined; 
+                return { [key]: properties[key].default || undefined }
+            })
+            .reduce((cur, prev) => ({ ...prev, ...cur }), {});
+        return ___props;
     }
 
     _createActions() {
         this._actions = Object.keys(this.constructor.properties)
-            .map(key => {
-                return { [key]: value => state => ({ [key]: value }) };
-            }).reduce((cur, prev) => {
-                return { ...prev, ...cur };
-            }, {});
+            .map(key => ({ [key]: value => state => {
+                    //aligns with lit element convention of props directly on 'this'
+                    this[key] = value; 
+                    return { [key]: value };
+                }
+            }))
+            .reduce((cur, prev) => ({ ...prev, ...cur }), {});
     }
 
     static get observedAttributes() { 
@@ -51,7 +53,9 @@ export class HyperBase extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
-        if(this.hypeState[name]) {  //invoke state methods so that properties reflect attributes
+        if(this.hypeState[name]) {  
+            //invoke state methods so that properties reflect attributes
+            //this effectively makes properties mutable (unlike hyperapp)
             this.hypeState[name](newValue);
         }
     }
